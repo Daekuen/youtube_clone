@@ -1,7 +1,30 @@
+import React, { useEffect, useState } from 'react';
+import VideoList from './components/video_list/video_list.jsx';
 import './app.css';
 
 function App() {
-  return <h1> Hello </h1>
+
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => { // component가 mount or update 될때마다 callback 함수 실행
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+    
+    fetch("https://youtube.googleapis.com/youtube/v3/search?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyAGGJUBUXjkO860DjYqa5bbosW0CUmqPSE",
+          requestOptions
+        )
+      .then(response => response.json()) // json으로 변환
+      .then(result => setVideos(result.items))
+      .catch(error => console.log('error', error));
+  },[]);
+  
+  return (
+    <>
+      <VideoList videos={videos} />
+    </>
+  )
 }
 
 export default App;
