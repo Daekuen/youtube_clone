@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import VideoList from './components/video_list/video_list.jsx';
-import './app.css';
+import SearchHeader from './components/search_header/search_header.jsx';
+import styles from './app.module.css';
 
 function App() {
 
@@ -21,9 +22,10 @@ function App() {
   },[]);
   
   return (
-    <>
+    <div className={styles.app}>
+      <SearchHeader />
       <VideoList videos={videos} />
-    </>
+    </div>
   )
 }
 
