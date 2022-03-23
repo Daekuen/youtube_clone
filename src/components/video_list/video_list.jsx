@@ -7,6 +7,7 @@ const VideoList = ({ videos }) => {
     <ul>
       {videos.map((video) => {
         console.log(video.snippet)
+        
         return <VideoItem key={video.id.videoId} video={video}/>
       })}
     </ul>
