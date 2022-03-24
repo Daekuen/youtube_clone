@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import VideoList from './components/video_list/video_list.jsx';
 import SearchHeader from './components/search_header/search_header.jsx';
 import VideoDetail from './components/video_detail/video_detail.jsx';
@@ -8,16 +8,16 @@ function App({ youtube }) {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
-  const selectVideo = (video) => {
+  const selectVideo = useCallback((video) => {
     setSelectedVideo(video);
-  };
+  }, []);
 
-  const search = (query) => {
+  const search = useCallback((query) => {
     youtube.search(query).then((videos) => {
       setVideos(videos);
       setSelectedVideo(null);
     });
-  };
+  }, []);
 
   useEffect(() => {
     // component가 mount or update 될때마다 callback 함수 실행
